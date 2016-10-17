@@ -18,8 +18,9 @@ public final class WebServer implements Server {
 	public void start() throws IOException {
 		new FtBasic(
 			new TkFork(
-				new FkRegex("/", "hello, world!")),
-				port
+				new FkRegex("/", "hello, world!")
+			),
+			port
 		).start(Exit.NEVER);
 	}
 
