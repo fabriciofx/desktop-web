@@ -13,7 +13,7 @@ public final class App {
 		try {
 			final Server server = new WebServer(8080);
 			server.start();
-			final Browser browser = new Browsers().browser();
+			final Browser browser = new Browsers(server).browser();
 			browser.open(new URI("http://localhost:8080"));
 		} catch (final IOException | URISyntaxException e) {
 			e.printStackTrace();

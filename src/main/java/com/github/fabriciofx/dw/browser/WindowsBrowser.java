@@ -11,10 +11,15 @@ public final class WindowsBrowser implements Browser {
 	
 	@Override
 	public void open(final URI uri) throws IOException {
-		Runtime.getRuntime().exec(
-			String.format("cmd.exe /C start %s",
+		final Process process = Runtime.getRuntime().exec(
+			String.format("cmd.exe /C start /wait %s",
 				uri.toURL().toString()
 			)
 		);
+		try {
+			process.waitFor();
+		} catch (final InterruptedException e) {
+			throw new IOException(e);
+		}		
 	}
 }

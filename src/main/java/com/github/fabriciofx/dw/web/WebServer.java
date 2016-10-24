@@ -18,6 +18,7 @@ public final class WebServer implements Server {
 
 	@Override
 	public void start() throws IOException {
+		System.out.print("Starting webserver... ");
 		final Thread thread = new Thread(
 			new Runnable() {
 				@Override
@@ -41,10 +42,13 @@ public final class WebServer implements Server {
 			}
 		);
 		thread.start();
+		System.out.println("done.");
 	}
 
 	@Override
 	public void stop() throws IOException {
+		System.out.print("Stopping webserver... ");
 		this.exit = true;
+		System.out.println("done.");
 	}	
 }

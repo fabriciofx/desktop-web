@@ -3,12 +3,19 @@ package com.github.fabriciofx.dw.browser;
 import java.util.Arrays;
 import java.util.List;
 
+import com.github.fabriciofx.dw.Server;
+
 public final class Browsers {
 	private final List<Browser> browsers;
 
-	public Browsers() {
-		this(new DesktopBrowser(), new WindowsBrowser(), new LinuxBrowser(),
-				new MacOsBrowser(), new Win32Browser());
+	public Browsers(final Server server) {
+		this(
+			/*new ServerBrowser(server, new DesktopBrowser()),*/
+			new ServerBrowser(server, new WindowsBrowser()),
+			new ServerBrowser(server, new LinuxBrowser()),
+			new ServerBrowser(server, new MacOsBrowser()),
+			new ServerBrowser(server, new Win32Browser())
+		);
 	}
 
 	public Browsers(final Browser... browser) {
