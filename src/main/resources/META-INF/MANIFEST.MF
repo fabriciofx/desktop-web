@@ -1,0 +1,3 @@
+Main-Class: com.github.fabriciofx.dw.App
+DesktopWeb-Host: localhost
+DesktopWeb-Port: 8080

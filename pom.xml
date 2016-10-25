@@ -82,6 +82,10 @@
 						<manifest>
 							<mainClass>com.github.fabriciofx.dw.App</mainClass>
 						</manifest>
+						<manifestEntries>
+							<DesktopWeb-Host>localhost</DesktopWeb-Host>
+							<DesktopWeb-Port>8080</DesktopWeb-Port>						
+						</manifestEntries>
 					</archive>
 				</configuration>
 				<executions>
