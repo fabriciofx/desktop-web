@@ -46,11 +46,6 @@
 			<version>0.17.2</version>
 		</dependency>
 		<dependency>
-			<groupId>com.jcabi</groupId>
-			<artifactId>jcabi-manifests</artifactId>
-			<version>1.1</version>
-		</dependency>
-		<dependency>
 			<groupId>com.jcabi.incubator</groupId>
 			<artifactId>xembly</artifactId>
 			<version>0.22</version>
@@ -82,10 +77,6 @@
 						<manifest>
 							<mainClass>com.github.fabriciofx.dw.App</mainClass>
 						</manifest>
-						<manifestEntries>
-							<DesktopWeb-Host>localhost</DesktopWeb-Host>
-							<DesktopWeb-Port>8080</DesktopWeb-Port>						
-						</manifestEntries>
 					</archive>
 				</configuration>
 				<executions>
