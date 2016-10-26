@@ -6,6 +6,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import com.github.fabriciofx.dw.Server;
+import com.jcabi.log.Logger;
 
 public final class ToscoServer implements Server {
 	private final ServerSocket socket;
@@ -20,7 +21,7 @@ public final class ToscoServer implements Server {
 
 	@Override
 	public void start() throws IOException {
-		System.out.print("Starting toscoserver... ");
+		Logger.debug(ToscoServer.class, "Starting toscoserver... ");
 		new Thread(
 			new Runnable() {
 				@Override
@@ -39,14 +40,14 @@ public final class ToscoServer implements Server {
 				}				
 			}
 		).start();
-		System.out.println("done.");
+		Logger.debug(ToscoServer.class, "done.");
 	}
 
 	@Override
 	public void stop() throws IOException {
-		System.out.print("Stopping toscoserver... ");
+		Logger.debug(ToscoServer.class, "Stopping toscoserver... ");
 		socket.close();
-		System.out.println("done.");
+		Logger.debug(ToscoServer.class, "done.");
 	}
 	
 	private static void response(Socket client) throws IOException {

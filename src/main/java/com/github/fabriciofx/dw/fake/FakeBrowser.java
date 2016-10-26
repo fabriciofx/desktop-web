@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URI;
 
 import com.github.fabriciofx.dw.browser.Browser;
+import com.jcabi.log.Logger;
 
 public final class FakeBrowser implements Browser {
 	@Override
@@ -13,11 +14,9 @@ public final class FakeBrowser implements Browser {
 
 	@Override
 	public void open(final URI uri) throws IOException {
-		System.out.println(
-			String.format(
-				"Opening %s... ",
-				uri.toURL().toString()
-			)
+		Logger.debug(FakeBrowser.class,
+			"Opening %s... ",
+			uri.toURL().toString()
 		);
 	}
 }

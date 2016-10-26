@@ -6,6 +6,7 @@ import org.takes.http.Exit;
 import org.takes.http.FtBasic;
 
 import com.github.fabriciofx.dw.Server;
+import com.jcabi.log.Logger;
 
 public final class WebServer implements Server {
 	private final int port;
@@ -18,7 +19,7 @@ public final class WebServer implements Server {
 
 	@Override
 	public void start() throws IOException {
-		System.out.print("Starting webserver... ");
+		Logger.debug(WebServer.class, "Starting webserver... ");
 		final Thread thread = new Thread(
 			new Runnable() {
 				@Override
@@ -42,13 +43,13 @@ public final class WebServer implements Server {
 			}
 		);
 		thread.start();
-		System.out.println("done.");
+		Logger.debug(WebServer.class, "done.");
 	}
 
 	@Override
 	public void stop() throws IOException {
-		System.out.print("Stopping webserver... ");
+		Logger.debug(WebServer.class, "Stopping webserver... ");
 		this.exit = true;
-		System.out.println("done.");
+		Logger.debug(WebServer.class, "done.");
 	}	
 }
