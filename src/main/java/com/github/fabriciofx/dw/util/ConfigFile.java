@@ -1,4 +1,4 @@
-package com.github.fabriciofx.dw.fake.util;
+package com.github.fabriciofx.dw.util;
 
 import java.io.IOException;
 import java.io.InputStream;

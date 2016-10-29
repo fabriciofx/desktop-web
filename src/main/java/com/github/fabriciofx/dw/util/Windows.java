@@ -1,4 +1,4 @@
-package com.github.fabriciofx.dw.fake.util;
+package com.github.fabriciofx.dw.util;
 
 public final class Windows {
 	public boolean is64bit() {

@@ -3,8 +3,8 @@ package com.github.fabriciofx.dw.browser;
 import java.io.IOException;
 import java.net.URI;
 
-import com.github.fabriciofx.dw.fake.util.WaitCommand;
-import com.github.fabriciofx.dw.fake.util.Windows;
+import com.github.fabriciofx.dw.util.WaitCommand;
+import com.github.fabriciofx.dw.util.Windows;
 
 public final class Win32Browser implements Browser {
 	@Override

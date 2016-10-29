@@ -3,7 +3,7 @@ package com.github.fabriciofx.dw.browser;
 import java.io.IOException;
 import java.net.URI;
 
-import com.github.fabriciofx.dw.fake.util.WaitCommand;
+import com.github.fabriciofx.dw.util.WaitCommand;
 
 public final class MacOsBrowser implements Browser {
 	@Override
