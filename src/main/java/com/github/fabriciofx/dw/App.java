@@ -8,6 +8,7 @@ import com.github.fabriciofx.dw.browser.Browser;
 import com.github.fabriciofx.dw.browser.Browsers;
 import com.github.fabriciofx.dw.fake.util.Config;
 import com.github.fabriciofx.dw.fake.util.ConfigFile;
+import com.github.fabriciofx.dw.fake.util.Sync;
 import com.github.fabriciofx.dw.web.WebServer;
 
 public final class App {
@@ -17,9 +18,10 @@ public final class App {
 			final String host = config.read("desktop-web.host");
 			final int port = Integer.parseInt(config.read("desktop-web.port"));
 			final Server server = new WebServer(port);
-			server.start();
 			final Browser browser = new Browsers(server).browser();
-			browser.open(
+			final Sync sync = new Sync(server, browser);
+			sync.server().start();
+			sync.browser().open(
 				new URI(
 					String.format(
 						"http://%s:%d",
