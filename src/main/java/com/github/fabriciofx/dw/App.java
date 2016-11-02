@@ -6,7 +6,7 @@ import java.net.URISyntaxException;
 
 import com.github.fabriciofx.dw.browser.Browser;
 import com.github.fabriciofx.dw.browser.Browsers;
-import com.github.fabriciofx.dw.fake.util.Sync;
+import com.github.fabriciofx.dw.sync.Sync;
 import com.github.fabriciofx.dw.util.Config;
 import com.github.fabriciofx.dw.util.ConfigFile;
 import com.github.fabriciofx.dw.web.WebServer;
