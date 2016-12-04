@@ -10,6 +10,7 @@ import com.github.fabriciofx.dw.browser.Browsers;
 import com.github.fabriciofx.dw.util.Config;
 import com.github.fabriciofx.dw.util.ConfigFile;
 import com.github.fabriciofx.dw.web.WebServer;
+import com.github.fabriciofx.dw.web.WebServerProcess;
 import com.jcabi.log.Logger;
 
 
@@ -21,7 +22,9 @@ public final class App {
 			final int port = Integer.parseInt(config.read("desktop-web.port"));
 			// TODO: remove temporal coupling between server and browser
 			final CountDownLatch cdl = new CountDownLatch(1);
-			final Server server = new WebServer(cdl, port);
+			final Server server = new WebServer(cdl,
+				new WebServerProcess(port)
+			);
 			final Browser browser = new Browsers(cdl).browser();
 			server.start();
 			browser.open(
