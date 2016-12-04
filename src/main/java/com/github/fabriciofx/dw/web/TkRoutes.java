@@ -6,8 +6,8 @@ import org.takes.tk.TkClasspath;
 import org.takes.tk.TkWithType;
 import org.takes.tk.TkWrap;
 
-public final class TkMain extends TkWrap {
-	public TkMain() {
+public final class TkRoutes extends TkWrap {
+	public TkRoutes() {
 		super(
 			new TkFork(
 				new FkRegex("/robots.txt", ""),

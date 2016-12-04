@@ -26,7 +26,7 @@ public final class WebServer implements Server {
 				public void run() {
 					try {
 						new FtBasic(
-							new TkMain(),
+							new TkRoutes(),
 							port
 						).start(
 							new Exit() {
