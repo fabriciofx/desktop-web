@@ -17,7 +17,9 @@ public final class TkMain extends TkWrap {
 						"text/css"
 					)
 				),
-				new FkRegex("/", new TkIndex())
+				new FkRegex("/", new TkIndex()),
+				new FkRegex("/form", new TkForm()),
+				new FkRegex("/(?<path>[^/]+)", new TkPage())		
 			)
 		);
 	}		
