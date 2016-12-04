@@ -17,10 +17,10 @@ public final class TkForm implements Take {
 			System.out.println("Nome: " + nome);
 		}
 		return new RsForward(
-				new RsFlash(
-					"Obrigado por responder!"
-				),
-				"/"
-			);
-		}
+			new RsFlash(
+				"Obrigado por responder!"
+			),
+			"/"
+		);
+	}
 }
