@@ -2,19 +2,17 @@ package com.github.fabriciofx.dw.browser;
 
 import java.util.Arrays;
 import java.util.List;
-
-import com.github.fabriciofx.dw.Server;
+import java.util.concurrent.CountDownLatch;
 
 public final class Browsers {
 	private final List<Browser> browsers;
 
-	public Browsers(final Server server) {
+	public Browsers(final CountDownLatch cdl) {
 		this(
-			/*new ServerBrowser(server, new DesktopBrowser()),*/
-			new ServerBrowser(server, new WindowsBrowser()),
-			new ServerBrowser(server, new LinuxBrowser()),
-			new ServerBrowser(server, new MacOsBrowser()),
-			new ServerBrowser(server, new Win32Browser())
+			new SyncBrowser(cdl, new WindowsBrowser()),
+			new SyncBrowser(cdl, new LinuxBrowser()),
+			new SyncBrowser(cdl, new MacOsBrowser()),
+			new SyncBrowser(cdl, new Win32Browser())
 		);
 	}
 

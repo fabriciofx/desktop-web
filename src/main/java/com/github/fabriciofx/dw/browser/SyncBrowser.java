@@ -2,18 +2,17 @@ package com.github.fabriciofx.dw.browser;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.concurrent.CountDownLatch;
 
-import com.github.fabriciofx.dw.Server;
-
-public final class ServerBrowser implements Browser {
-	private final Server server;
+public final class SyncBrowser implements Browser {
+	private final CountDownLatch cdl;
 	private final Browser browser;
 
-	public ServerBrowser(final Server server, final Browser browser) {
-		this.server = server;
+	public SyncBrowser(final CountDownLatch cdl, final Browser browser) {
+		this.cdl = cdl;
 		this.browser = browser;
 	}
-	
+
 	@Override
 	public boolean match(final String name) {
 		return browser.match(name);
@@ -21,7 +20,11 @@ public final class ServerBrowser implements Browser {
 
 	@Override
 	public void open(final URI uri) throws IOException {
+		try {
+			cdl.await();
+		} catch (final InterruptedException e) {
+			throw new IOException(e);
+		}
 		browser.open(uri);
-		server.stop();
 	}
 }

@@ -1,6 +1,7 @@
 package com.github.fabriciofx.dw.web;
 
 import java.io.IOException;
+import java.util.concurrent.CountDownLatch;
 
 import org.takes.http.Exit;
 import org.takes.http.FtBasic;
@@ -9,18 +10,12 @@ import com.github.fabriciofx.dw.Server;
 import com.jcabi.log.Logger;
 
 public final class WebServer implements Server {
-	private final int port;
-	private volatile boolean exit; 
+	private final CountDownLatch cdl;
+	private final Thread thread; 
 
-	public WebServer(final int port) {
-		this.port = port;
-		this.exit = false;
-	}
-
-	@Override
-	public void start() throws IOException {
-		Logger.debug(WebServer.class, "Starting webserver... ");
-		final Thread thread = new Thread(
+	public WebServer(final CountDownLatch cdl, final int port) {
+		this.cdl = cdl;
+		this.thread = new Thread(
 			new Runnable() {
 				@Override
 				public void run() {
@@ -32,7 +27,7 @@ public final class WebServer implements Server {
 							new Exit() {
 								@Override
 								public boolean ready() {
-									return exit;
+									return Thread.interrupted();
 								}
 							}
 						);
@@ -42,14 +37,20 @@ public final class WebServer implements Server {
 				}
 			}
 		);
+	}
+
+	@Override
+	public void start() throws IOException {
+		Logger.debug(WebServer.class, "Starting webserver... ");
 		thread.start();
+		cdl.countDown();
 		Logger.debug(WebServer.class, "done.");
 	}
 
 	@Override
 	public void stop() throws IOException {
 		Logger.debug(WebServer.class, "Stopping webserver... ");
-		this.exit = true;
+		thread.interrupt();
 		Logger.debug(WebServer.class, "done.");
 	}	
 }

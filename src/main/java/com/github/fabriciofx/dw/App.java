@@ -3,13 +3,14 @@ package com.github.fabriciofx.dw;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.concurrent.CountDownLatch;
 
 import com.github.fabriciofx.dw.browser.Browser;
 import com.github.fabriciofx.dw.browser.Browsers;
-import com.github.fabriciofx.dw.sync.Sync;
 import com.github.fabriciofx.dw.util.Config;
 import com.github.fabriciofx.dw.util.ConfigFile;
 import com.github.fabriciofx.dw.web.WebServer;
+import com.jcabi.log.Logger;
 
 
 public final class App {
@@ -18,11 +19,12 @@ public final class App {
 			final Config config = new ConfigFile("desktop-web.properties");
 			final String host = config.read("desktop-web.host");
 			final int port = Integer.parseInt(config.read("desktop-web.port"));
-			final Server server = new WebServer(port);
-			final Browser browser = new Browsers(server).browser();
-			final Sync sync = new Sync(server, browser);
-			sync.server().start();
-			sync.browser().open(
+			// TODO: remove temporal coupling between server and browser
+			final CountDownLatch cdl = new CountDownLatch(1);
+			final Server server = new WebServer(cdl, port);
+			final Browser browser = new Browsers(cdl).browser();
+			server.start();
+			browser.open(
 				new URI(
 					String.format(
 						"http://%s:%d",
@@ -31,8 +33,9 @@ public final class App {
 					)
 				)
 			);
+			server.stop();
 		} catch (final IOException | URISyntaxException e) {
-			e.printStackTrace();
+			Logger.error(App.class, e.getMessage());
 		}
 	}
 }
