@@ -7,7 +7,7 @@ import com.github.fabriciofx.dw.util.WaitCommand;
 
 public final class LinuxBrowser implements Browser {
 	private final static String[] BROWSERS = {
-		"xdg-open", "chromium", "google-chrome", "firefox", "mozilla-firefox",
+		"chromium", "google-chrome", "firefox", "mozilla-firefox",
 		"mozilla", "konqueror", "netscape", "opera", "midori" };
 
 	@Override
