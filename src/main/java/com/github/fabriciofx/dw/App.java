@@ -60,7 +60,6 @@ public final class App {
 					)
 				)
 			);
-			server.stop();
 		} catch (final IOException | URISyntaxException e) {
 			Logger.error(App.class, e.getMessage());
 		}
