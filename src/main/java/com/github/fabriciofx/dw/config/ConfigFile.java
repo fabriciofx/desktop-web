@@ -23,10 +23,10 @@
  */
 package com.github.fabriciofx.dw.config;
 
+import com.github.fabriciofx.dw.Config;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-import java.util.function.Supplier;
 
 public final class ConfigFile implements Config {
     private final Properties properties;

@@ -21,33 +21,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.fabriciofx.dw.browser;
+package com.github.fabriciofx.dw.command;
 
-import java.io.IOException;
-import java.net.URI;
-import java.util.concurrent.CountDownLatch;
-
-public final class SyncBrowser implements Browser {
-	private final CountDownLatch cdl;
-	private final Browser browser;
-
-	public SyncBrowser(final CountDownLatch cdl, final Browser browser) {
-		this.cdl = cdl;
-		this.browser = browser;
-	}
-
-	@Override
-	public boolean match(final String name) {
-		return browser.match(name);
-	}
-
-	@Override
-	public void open(final URI uri) throws IOException {
-		try {
-			cdl.await();
-		} catch (final InterruptedException e) {
-			throw new IOException(e);
+public final class Windows {
+	public boolean is64bit() {
+		boolean is64bit = false;
+		final String osName = System.getProperty("os.name").toLowerCase();
+		if (osName.contains("windows")) {
+			is64bit = System.getenv("ProgramFiles(x86)") != null;
+		} else {
+			is64bit = System.getProperty("os.arch").indexOf("64") != -1;
 		}
-		browser.open(uri);
+		return is64bit;
 	}
 }

@@ -23,11 +23,11 @@
  */
 package com.github.fabriciofx.dw.browser;
 
+import com.github.fabriciofx.dw.Browser;
+import com.github.fabriciofx.dw.command.Wait;
+import com.github.fabriciofx.dw.command.Windows;
 import java.io.IOException;
 import java.net.URI;
-
-import com.github.fabriciofx.dw.util.WaitCommand;
-import com.github.fabriciofx.dw.util.Windows;
 
 public final class Win32Browser implements Browser {
 	@Override
@@ -37,7 +37,7 @@ public final class Win32Browser implements Browser {
 
 	@Override
 	public void open(final URI uri) throws IOException {
-		new WaitCommand(
+		new Wait(
 			String.format(
 				"rundll32 url.dll,FileProtocolHandler %s",
 				uri.toURL().toString()

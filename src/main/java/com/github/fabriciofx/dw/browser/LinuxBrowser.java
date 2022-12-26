@@ -23,13 +23,13 @@
  */
 package com.github.fabriciofx.dw.browser;
 
+import com.github.fabriciofx.dw.Browser;
+import com.github.fabriciofx.dw.command.Wait;
 import java.io.IOException;
 import java.net.URI;
 
-import com.github.fabriciofx.dw.util.WaitCommand;
-
 public final class LinuxBrowser implements Browser {
-	private final static String[] BROWSERS = {
+	private final static String[] NAMES = {
 		"chromium", "google-chrome", "firefox", "mozilla-firefox",
 		"mozilla", "konqueror", "netscape", "opera", "midori" };
 
@@ -40,17 +40,17 @@ public final class LinuxBrowser implements Browser {
 
 	@Override
 	public void open(final URI uri) throws IOException {
-		for (final String b : BROWSERS) {
+		for (final String name : LinuxBrowser.NAMES) {
 			try {
-				new WaitCommand(
+				new Wait(
 					String.format("%s %s",
-						b,
+						name,
 						uri.toURL().toString()
 					)
 				).exec();
 				break;
-			} catch(final IOException e) {
-				continue;
+			} catch (final IOException ex) {
+				throw ex;
 			}
 		}
 	}

@@ -23,6 +23,7 @@
  */
 package com.github.fabriciofx.dw.config;
 
+import com.github.fabriciofx.dw.Config;
 import org.junit.Assert;
 import org.junit.Test;
 

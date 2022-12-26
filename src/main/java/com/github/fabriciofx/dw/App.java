@@ -23,19 +23,15 @@
  */
 package com.github.fabriciofx.dw;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.Properties;
-import java.util.concurrent.CountDownLatch;
-
-import com.github.fabriciofx.dw.browser.Browser;
 import com.github.fabriciofx.dw.browser.Browsers;
-import com.github.fabriciofx.dw.config.Config;
 import com.github.fabriciofx.dw.config.ConfigFile;
 import com.github.fabriciofx.dw.web.WebServer;
 import com.github.fabriciofx.dw.web.WebServerProcess;
 import com.jcabi.log.Logger;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.concurrent.CountDownLatch;
 
 
 public final class App {
@@ -46,9 +42,10 @@ public final class App {
 			final int port = Integer.parseInt(config.value("desktop-web.port"));
 			// TODO: remove temporal coupling between server and browser
 			final CountDownLatch cdl = new CountDownLatch(1);
-			final Server server = new WebServer(cdl,
-				new WebServerProcess(port)
-			);
+			final Server server = new WebServer(
+                cdl,
+                new WebServerProcess(port)
+            );
 			final Browser browser = new Browsers(cdl).browser();
 			server.start();
 			browser.open(
@@ -60,8 +57,8 @@ public final class App {
 					)
 				)
 			);
-		} catch (final IOException | URISyntaxException e) {
-			Logger.error(App.class, e.getMessage());
+		} catch (final IOException | URISyntaxException ex) {
+			Logger.error(App.class, ex.getMessage());
 		}
 	}
 }

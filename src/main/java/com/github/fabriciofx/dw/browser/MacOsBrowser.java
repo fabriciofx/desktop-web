@@ -23,10 +23,10 @@
  */
 package com.github.fabriciofx.dw.browser;
 
+import com.github.fabriciofx.dw.Browser;
+import com.github.fabriciofx.dw.command.Wait;
 import java.io.IOException;
 import java.net.URI;
-
-import com.github.fabriciofx.dw.util.WaitCommand;
 
 public final class MacOsBrowser implements Browser {
 	@Override
@@ -37,7 +37,7 @@ public final class MacOsBrowser implements Browser {
 
 	@Override
 	public void open(final URI uri) throws IOException {
-		new WaitCommand(
+		new Wait(
 			String.format("open %s",
 				uri.toURL().toString()
 			)

@@ -21,21 +21,34 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.fabriciofx.dw.fake;
+package com.github.fabriciofx.dw.browser;
 
+import com.github.fabriciofx.dw.Browser;
 import java.io.IOException;
+import java.net.URI;
+import java.util.concurrent.CountDownLatch;
 
-import com.github.fabriciofx.dw.Server;
-import com.jcabi.log.Logger;
+public final class Sync implements Browser {
+	private final CountDownLatch cdl;
+	private final Browser browser;
 
-public final class FakeServer implements Server {
-	@Override
-	public void start() throws IOException {
-		Logger.debug(FakeServer.class, "Starting fakeserver... done.");		
+	public Sync(final CountDownLatch cdl, final Browser browser) {
+		this.cdl = cdl;
+		this.browser = browser;
 	}
 
 	@Override
-	public void stop() throws IOException {
-		Logger.debug(FakeServer.class, "Stopping fakeserver... done.");		
+	public boolean match(final String name) {
+		return this.browser.match(name);
+	}
+
+	@Override
+	public void open(final URI uri) throws IOException {
+		try {
+			this.cdl.await();
+		} catch (final InterruptedException ex) {
+			throw new IOException(ex);
+		}
+		this.browser.open(uri);
 	}
 }

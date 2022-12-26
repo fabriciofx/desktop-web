@@ -23,12 +23,11 @@
  */
 package com.github.fabriciofx.dw.web;
 
-import java.io.IOException;
-
 import org.takes.Response;
 import org.takes.facets.fork.RqRegex;
 import org.takes.facets.fork.TkRegex;
 import org.takes.rs.RsHtml;
+import java.io.IOException;
 
 public final class TkPage implements TkRegex {
 	@Override

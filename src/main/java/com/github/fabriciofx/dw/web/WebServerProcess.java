@@ -23,10 +23,8 @@
  */
 package com.github.fabriciofx.dw.web;
 
-import java.io.IOException;
-
-import org.takes.http.Exit;
 import org.takes.http.FtBasic;
+import java.io.IOException;
 
 public final class WebServerProcess extends Thread {
 	private final int port;
@@ -40,17 +38,12 @@ public final class WebServerProcess extends Thread {
 		try {
 			new FtBasic(
 				new TkRoutes(),
-				port
+				this.port
 			).start(
-				new Exit() {
-					@Override
-					public boolean ready() {
-						return Thread.interrupted();
-					}
-				}
-			);
-		} catch (final IOException e) {
-			throw new IllegalArgumentException(e);
+                () -> Thread.interrupted()
+            );
+		} catch (final IOException ex) {
+			throw new IllegalArgumentException(ex);
 		}		
 	}
 }

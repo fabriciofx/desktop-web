@@ -23,13 +23,11 @@
  */
 package com.github.fabriciofx.dw.browser;
 
+import com.github.fabriciofx.dw.Browser;
+import org.junit.Test;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-
-import org.junit.Test;
-
-import com.github.fabriciofx.dw.fake.FakeBrowser;
 
 public final class BrowserTest {
 	@Test

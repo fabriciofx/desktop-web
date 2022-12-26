@@ -23,6 +23,7 @@
  */
 package com.github.fabriciofx.dw.browser;
 
+import com.github.fabriciofx.dw.Browser;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -32,10 +33,10 @@ public final class Browsers {
 
 	public Browsers(final CountDownLatch cdl) {
 		this(
-			new SyncBrowser(cdl, new WindowsBrowser()),
-			new SyncBrowser(cdl, new LinuxBrowser()),
-			new SyncBrowser(cdl, new MacOsBrowser()),
-			new SyncBrowser(cdl, new Win32Browser())
+			new Sync(cdl, new WindowsBrowser()),
+			new Sync(cdl, new LinuxBrowser()),
+			new Sync(cdl, new MacOsBrowser()),
+			new Sync(cdl, new Win32Browser())
 		);
 	}
 
@@ -49,9 +50,9 @@ public final class Browsers {
 
 	public Browser browser() {
 		final String name = System.getProperty("os.name", "linux");
-		for (final Browser b : browsers) {
-			if (b.match(name)) {
-				return b;
+		for (final Browser browser : this.browsers) {
+			if (browser.match(name)) {
+				return browser;
 			}
 		}
 		throw new IllegalArgumentException("invalid operating system");

@@ -21,15 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.fabriciofx.dw.fake;
+package com.github.fabriciofx.dw.web;
 
+import com.github.fabriciofx.dw.Server;
+import com.jcabi.log.Logger;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-
-import com.github.fabriciofx.dw.Server;
-import com.jcabi.log.Logger;
 
 public final class ToscoServer implements Server {
 	private final ServerSocket socket;
@@ -46,34 +45,31 @@ public final class ToscoServer implements Server {
 	public void start() throws IOException {
 		Logger.debug(ToscoServer.class, "Starting toscoserver... ");
 		new Thread(
-			new Runnable() {
-				@Override
-				public void run() {
-					try {
-						while (true) {
-							final Socket client = socket.accept();
-							System.out.println("Client: " +
-								client.getInetAddress().getHostAddress());
-							response(client);
-							client.close();
-						}
-					} catch (final IOException e) {
-						throw new IllegalArgumentException(e);
-					}
-				}				
-			}
-		).start();
+            () -> {
+                try {
+                    while (true) {
+                        final Socket client = socket.accept();
+                        System.out.println("Client: " +
+                            client.getInetAddress().getHostAddress());
+                        response(client);
+                        client.close();
+                    }
+                } catch (final IOException e) {
+                    throw new IllegalArgumentException(e);
+                }
+            }
+        ).start();
 		Logger.debug(ToscoServer.class, "done.");
 	}
 
 	@Override
 	public void stop() throws IOException {
 		Logger.debug(ToscoServer.class, "Stopping toscoserver... ");
-		socket.close();
+        this.socket.close();
 		Logger.debug(ToscoServer.class, "done.");
 	}
 	
-	private static void response(Socket client) throws IOException {
+	private static void response(final Socket client) throws IOException {
 		final PrintWriter out = new PrintWriter(client.getOutputStream(), true);
 		out.println("HTTP/1.0 200");
 		out.println("Content-type: text/html");

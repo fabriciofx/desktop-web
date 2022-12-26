@@ -21,13 +21,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.fabriciofx.dw.browser;
+package com.github.fabriciofx.dw.command;
 
+import com.jcabi.log.Logger;
 import java.io.IOException;
-import java.net.URI;
 
-public interface Browser {
-	boolean match(String name);
+public final class Wait {
+	private final String command;
 	
-	void open(URI uri) throws IOException;
+	public Wait(final String command) {
+		this.command = command;
+	}
+	
+	public void exec() throws IOException {
+		Logger.debug(Wait.class, "Executing command %s", this.command);
+		final Process process = Runtime.getRuntime().exec(this.command);
+		try {
+			process.waitFor();
+		} catch (final InterruptedException ex) {
+			throw new IOException(ex);
+		}		
+	}
 }

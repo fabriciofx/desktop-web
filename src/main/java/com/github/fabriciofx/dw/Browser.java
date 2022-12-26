@@ -21,17 +21,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.fabriciofx.dw.util;
+package com.github.fabriciofx.dw;
 
-public final class Windows {
-	public boolean is64bit() {
-		boolean is64bit = false;
-		final String osName = System.getProperty("os.name").toLowerCase();
-		if (osName.contains("windows")) {
-			is64bit = System.getenv("ProgramFiles(x86)") != null;
-		} else {
-			is64bit = System.getProperty("os.arch").indexOf("64") != -1;
-		}
-		return is64bit;
-	}
+import java.io.IOException;
+import java.net.URI;
+
+public interface Browser {
+	boolean match(String name);
+	
+	void open(URI uri) throws IOException;
 }

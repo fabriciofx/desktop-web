@@ -23,6 +23,7 @@
  */
 package com.github.fabriciofx.dw.browser;
 
+import com.github.fabriciofx.dw.Browser;
 import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
@@ -43,8 +44,8 @@ public final class DesktopBrowser implements Browser {
 		try {
 			final Desktop desktop = Desktop.getDesktop();
 			desktop.browse(uri);
-		} catch(final Exception e) {
-			throw new IOException(e);
+		} catch(final Exception ex) {
+			throw new IOException(ex);
 		}
 	}
 }
