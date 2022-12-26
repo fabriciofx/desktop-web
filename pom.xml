@@ -88,6 +88,9 @@
               <manifest>
                 <mainClass>com.github.fabriciofx.dw.App</mainClass>
               </manifest>
+              <manifestEntries>
+                <Multi-Release>true</Multi-Release>
+              </manifestEntries>
             </archive>
             <descriptorRefs>
               <descriptorRef>jar-with-dependencies</descriptorRef>
