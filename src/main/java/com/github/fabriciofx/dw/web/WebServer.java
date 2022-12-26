@@ -50,5 +50,10 @@ public final class WebServer implements Server {
 		Logger.debug(WebServer.class, "Stopping webserver... ");
         this.process.interrupt();
 		Logger.debug(WebServer.class, "done.");
-	}	
+	}
+
+    @Override
+    public void close() throws IOException {
+        this.stop();
+    }
 }

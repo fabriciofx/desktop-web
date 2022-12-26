@@ -68,8 +68,13 @@ public final class ToscoServer implements Server {
         this.socket.close();
 		Logger.debug(ToscoServer.class, "done.");
 	}
-	
-	private static void response(final Socket client) throws IOException {
+
+    @Override
+    public void close() throws IOException {
+        this.stop();
+    }
+
+    private static void response(final Socket client) throws IOException {
 		final PrintWriter out = new PrintWriter(client.getOutputStream(), true);
 		out.println("HTTP/1.0 200");
 		out.println("Content-type: text/html");

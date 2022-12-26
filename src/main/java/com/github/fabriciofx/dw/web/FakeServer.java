@@ -37,4 +37,9 @@ public final class FakeServer implements Server {
 	public void stop() throws IOException {
 		Logger.debug(FakeServer.class, "Stopping fakeserver... done.");		
 	}
+
+    @Override
+    public void close() throws IOException {
+        this.stop();
+    }
 }

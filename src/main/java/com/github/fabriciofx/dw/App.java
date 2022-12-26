@@ -36,27 +36,19 @@ import java.util.concurrent.CountDownLatch;
 
 public final class App {
 	public static void main(String[] args) {
+        final Config config = new ConfigFile("desktop-web.properties");
+        final String host = config.value("desktop-web.host");
+        final int port = Integer.parseInt(config.value("desktop-web.port"));
+        final CountDownLatch cdl = new CountDownLatch(1);
 		try {
-			final Config config = new ConfigFile("desktop-web.properties");
-			final String host = config.value("desktop-web.host");
-			final int port = Integer.parseInt(config.value("desktop-web.port"));
-			// TODO: remove temporal coupling between server and browser
-			final CountDownLatch cdl = new CountDownLatch(1);
-			final Server server = new WebServer(
+            final Server server = new WebServer(
                 cdl,
                 new WebServerProcess(port)
             );
+            server.start();
+			// TODO: remove temporal coupling between server and browser
 			final Browser browser = new Browsers(cdl).browser();
-			server.start();
-			browser.open(
-				new URI(
-					String.format(
-						"http://%s:%d",
-						host,
-						port
-					)
-				)
-			);
+			browser.open(new URI(String.format("http://%s:%d", host, port)));
 		} catch (final IOException | URISyntaxException ex) {
 			Logger.error(App.class, ex.getMessage());
 		}
