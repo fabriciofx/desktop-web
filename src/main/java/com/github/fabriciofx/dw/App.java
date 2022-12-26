@@ -3,14 +3,15 @@ package com.github.fabriciofx.dw;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Properties;
 import java.util.concurrent.CountDownLatch;
 
 import com.github.fabriciofx.dw.browser.Browser;
 import com.github.fabriciofx.dw.browser.Browsers;
+import com.github.fabriciofx.dw.config.Config;
+import com.github.fabriciofx.dw.config.ConfigFile;
 import com.github.fabriciofx.dw.web.WebServer;
 import com.github.fabriciofx.dw.web.WebServerProcess;
-import com.github.fabriciofx.rocket.config.Config;
-import com.github.fabriciofx.rocket.config.ConfigFile;
 import com.jcabi.log.Logger;
 
 
@@ -18,8 +19,8 @@ public final class App {
 	public static void main(String[] args) {
 		try {
 			final Config config = new ConfigFile("desktop-web.properties");
-			final String host = config.value(String.class, "desktop-web.host");
-			final int port = config.value(Integer.class, "desktop-web.port");
+			final String host = config.value("desktop-web.host");
+			final int port = Integer.parseInt(config.value("desktop-web.port"));
 			// TODO: remove temporal coupling between server and browser
 			final CountDownLatch cdl = new CountDownLatch(1);
 			final Server server = new WebServer(cdl,
