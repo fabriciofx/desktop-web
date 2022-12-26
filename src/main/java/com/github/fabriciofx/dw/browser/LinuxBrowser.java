@@ -29,29 +29,31 @@ import java.io.IOException;
 import java.net.URI;
 
 public final class LinuxBrowser implements Browser {
-	private final static String[] NAMES = {
-		"chromium", "google-chrome", "firefox", "mozilla-firefox",
-		"mozilla", "konqueror", "netscape", "opera", "midori" };
+    private final static String[] NAMES = {
+        "chromium", "google-chrome", "firefox", "mozilla-firefox",
+        "mozilla", "konqueror", "netscape", "opera", "midori"
+    };
 
-	@Override
-	public boolean match(final String name) {
-		return name.toLowerCase().contains("linux");
-	}
+    @Override
+    public boolean match(final String name) {
+        return name.toLowerCase().contains("linux");
+    }
 
-	@Override
-	public void open(final URI uri) throws IOException {
-		for (final String name : LinuxBrowser.NAMES) {
-			try {
-				new Wait(
-					String.format("%s %s",
-						name,
-						uri.toURL().toString()
-					)
-				).exec();
-				break;
-			} catch (final IOException ex) {
-				throw ex;
-			}
-		}
-	}
+    @Override
+    public void open(final URI uri) throws IOException {
+        for (final String name : LinuxBrowser.NAMES) {
+            try {
+                new Wait(
+                    String.format(
+                        "%s %s",
+                        name,
+                        uri.toURL().toString()
+                    )
+                ).exec();
+                break;
+            } catch (final IOException ex) {
+                throw ex;
+            }
+        }
+    }
 }

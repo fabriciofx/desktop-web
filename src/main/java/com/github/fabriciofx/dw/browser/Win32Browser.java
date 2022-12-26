@@ -30,18 +30,18 @@ import java.io.IOException;
 import java.net.URI;
 
 public final class Win32Browser implements Browser {
-	@Override
-	public boolean match(final String name) {
-		return !new Windows().is64bit();
-	}
+    @Override
+    public boolean match(final String name) {
+        return !new Windows().is64bit();
+    }
 
-	@Override
-	public void open(final URI uri) throws IOException {
-		new Wait(
-			String.format(
-				"rundll32 url.dll,FileProtocolHandler %s",
-				uri.toURL().toString()
-			)
-		).exec();
-	}
+    @Override
+    public void open(final URI uri) throws IOException {
+        new Wait(
+            String.format(
+                "rundll32 url.dll,FileProtocolHandler %s",
+                uri.toURL().toString()
+            )
+        ).exec();
+    }
 }

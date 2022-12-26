@@ -26,10 +26,8 @@ package com.github.fabriciofx.dw;
 import java.io.IOException;
 
 public interface Server extends AutoCloseable {
-	void start() throws IOException;
-
-	void stop() throws IOException;
-
+    void start() throws IOException;
+    void stop() throws IOException;
     @Override
     void close() throws IOException;
 }

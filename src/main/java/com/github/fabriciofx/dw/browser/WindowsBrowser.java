@@ -29,17 +29,18 @@ import java.io.IOException;
 import java.net.URI;
 
 public final class WindowsBrowser implements Browser {
-	@Override
-	public boolean match(final String name) {
-		return name.toLowerCase().contains("windows");
-	}
-	
-	@Override
-	public void open(final URI uri) throws IOException {
-		new Wait(
-			String.format("cmd.exe /C start /wait %s",
-				uri.toURL().toString()
-			)
-		).exec();
-	}
+    @Override
+    public boolean match(final String name) {
+        return name.toLowerCase().contains("windows");
+    }
+
+    @Override
+    public void open(final URI uri) throws IOException {
+        new Wait(
+            String.format(
+                "cmd.exe /C start /wait %s",
+                uri.toURL().toString()
+            )
+        ).exec();
+    }
 }

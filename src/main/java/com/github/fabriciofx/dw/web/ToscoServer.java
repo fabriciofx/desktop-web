@@ -31,20 +31,20 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public final class ToscoServer implements Server {
-	private final ServerSocket socket;
+    private final ServerSocket socket;
 
-	public ToscoServer(final int port) throws IOException {
-		this(new ServerSocket(port));
-	}
+    public ToscoServer(final int port) throws IOException {
+        this(new ServerSocket(port));
+    }
 
-	public ToscoServer(final ServerSocket socket) {
-		this.socket = socket;
-	}
+    public ToscoServer(final ServerSocket socket) {
+        this.socket = socket;
+    }
 
-	@Override
-	public void start() throws IOException {
-		Logger.debug(ToscoServer.class, "Starting toscoserver... ");
-		new Thread(
+    @Override
+    public void start() throws IOException {
+        Logger.debug(ToscoServer.class, "Starting toscoserver... ");
+        new Thread(
             () -> {
                 try {
                     while (true) {
@@ -59,15 +59,15 @@ public final class ToscoServer implements Server {
                 }
             }
         ).start();
-		Logger.debug(ToscoServer.class, "done.");
-	}
+        Logger.debug(ToscoServer.class, "done.");
+    }
 
-	@Override
-	public void stop() throws IOException {
-		Logger.debug(ToscoServer.class, "Stopping toscoserver... ");
+    @Override
+    public void stop() throws IOException {
+        Logger.debug(ToscoServer.class, "Stopping toscoserver... ");
         this.socket.close();
-		Logger.debug(ToscoServer.class, "done.");
-	}
+        Logger.debug(ToscoServer.class, "done.");
+    }
 
     @Override
     public void close() throws IOException {
@@ -75,16 +75,16 @@ public final class ToscoServer implements Server {
     }
 
     private static void response(final Socket client) throws IOException {
-		final PrintWriter out = new PrintWriter(client.getOutputStream(), true);
-		out.println("HTTP/1.0 200");
-		out.println("Content-type: text/html");
-		out.println("Server-name: ToscoServer");
-		final String response = "<head><title>WebApp</title></head>" +
-				"<body><h1>Welcome to ToscoServer!</h1><body>";
-		out.println("Content-length: " + response.length());
-		out.println("");
-		out.println(response);
-		out.flush();
-		out.close();
-	}
+        final PrintWriter out = new PrintWriter(client.getOutputStream(), true);
+        out.println("HTTP/1.0 200");
+        out.println("Content-type: text/html");
+        out.println("Server-name: ToscoServer");
+        final String response = "<head><title>WebApp</title></head>" +
+            "<body><h1>Welcome to ToscoServer!</h1><body>";
+        out.println("Content-length: " + response.length());
+        out.println("");
+        out.println(response);
+        out.flush();
+        out.close();
+    }
 }

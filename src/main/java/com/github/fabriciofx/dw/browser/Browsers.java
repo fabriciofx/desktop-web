@@ -29,32 +29,32 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 public final class Browsers {
-	private final List<Browser> browsers;
+    private final List<Browser> browsers;
 
-	public Browsers(final CountDownLatch cdl) {
-		this(
-			new Sync(cdl, new WindowsBrowser()),
-			new Sync(cdl, new LinuxBrowser()),
-			new Sync(cdl, new MacOsBrowser()),
-			new Sync(cdl, new Win32Browser())
-		);
-	}
+    public Browsers(final CountDownLatch cdl) {
+        this(
+            new Sync(cdl, new WindowsBrowser()),
+            new Sync(cdl, new LinuxBrowser()),
+            new Sync(cdl, new MacOsBrowser()),
+            new Sync(cdl, new Win32Browser())
+        );
+    }
 
-	public Browsers(final Browser... browser) {
-		this(Arrays.asList(browser));
-	}
+    public Browsers(final Browser... browser) {
+        this(Arrays.asList(browser));
+    }
 
-	public Browsers(final List<Browser> browser) {
-		this.browsers = browser;
-	}
+    public Browsers(final List<Browser> browser) {
+        this.browsers = browser;
+    }
 
-	public Browser browser() {
-		final String name = System.getProperty("os.name", "linux");
-		for (final Browser browser : this.browsers) {
-			if (browser.match(name)) {
-				return browser;
-			}
-		}
-		throw new IllegalArgumentException("invalid operating system");
-	}
+    public Browser browser() {
+        final String name = System.getProperty("os.name", "linux");
+        for (final Browser browser : this.browsers) {
+            if (browser.match(name)) {
+                return browser;
+            }
+        }
+        throw new IllegalArgumentException("invalid operating system");
+    }
 }

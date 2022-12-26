@@ -30,21 +30,22 @@ import org.takes.tk.TkWithType;
 import org.takes.tk.TkWrap;
 
 public final class TkRoutes extends TkWrap {
-	public TkRoutes() {
-		super(
-			new TkFork(
-				new FkRegex("/robots.txt", ""),
-				new FkRegex("/css/.+\\.css",
-					new TkWithType(
-						new TkClasspath("/webapp"),
-						"text/css"
-					)
-				),
-				new FkRegex("/", new TkIndex()),
-				new FkRegex("/form", new TkForm()),
-				new FkRegex("/(?<path>[^/]+)", new TkPage())		
-			)
-		);
-	}		
+    public TkRoutes() {
+        super(
+            new TkFork(
+                new FkRegex("/robots.txt", ""),
+                new FkRegex(
+                    "/css/.+\\.css",
+                    new TkWithType(
+                        new TkClasspath("/webapp"),
+                        "text/css"
+                    )
+                ),
+                new FkRegex("/", new TkIndex()),
+                new FkRegex("/form", new TkForm()),
+                new FkRegex("/(?<path>[^/]+)", new TkPage())
+            )
+        );
+    }
 }
 

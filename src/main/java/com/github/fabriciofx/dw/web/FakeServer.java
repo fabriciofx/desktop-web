@@ -28,15 +28,15 @@ import com.jcabi.log.Logger;
 import java.io.IOException;
 
 public final class FakeServer implements Server {
-	@Override
-	public void start() throws IOException {
-		Logger.debug(FakeServer.class, "Starting fakeserver... done.");		
-	}
+    @Override
+    public void start() throws IOException {
+        Logger.debug(FakeServer.class, "Starting fakeserver... done.");
+    }
 
-	@Override
-	public void stop() throws IOException {
-		Logger.debug(FakeServer.class, "Stopping fakeserver... done.");		
-	}
+    @Override
+    public void stop() throws IOException {
+        Logger.debug(FakeServer.class, "Stopping fakeserver... done.");
+    }
 
     @Override
     public void close() throws IOException {

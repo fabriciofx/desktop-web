@@ -29,26 +29,26 @@ import java.net.URI;
 import java.util.concurrent.CountDownLatch;
 
 public final class Sync implements Browser {
-	private final CountDownLatch cdl;
-	private final Browser browser;
+    private final CountDownLatch cdl;
+    private final Browser browser;
 
-	public Sync(final CountDownLatch cdl, final Browser browser) {
-		this.cdl = cdl;
-		this.browser = browser;
-	}
+    public Sync(final CountDownLatch cdl, final Browser browser) {
+        this.cdl = cdl;
+        this.browser = browser;
+    }
 
-	@Override
-	public boolean match(final String name) {
-		return this.browser.match(name);
-	}
+    @Override
+    public boolean match(final String name) {
+        return this.browser.match(name);
+    }
 
-	@Override
-	public void open(final URI uri) throws IOException {
-		try {
-			this.cdl.await();
-		} catch (final InterruptedException ex) {
-			throw new IOException(ex);
-		}
-		this.browser.open(uri);
-	}
+    @Override
+    public void open(final URI uri) throws IOException {
+        try {
+            this.cdl.await();
+        } catch (final InterruptedException ex) {
+            throw new IOException(ex);
+        }
+        this.browser.open(uri);
+    }
 }

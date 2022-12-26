@@ -32,15 +32,15 @@ import org.takes.rq.form.RqFormBase;
 import java.io.IOException;
 
 public final class TkForm implements Take {
-	@Override
-	public Response act(final Request req) throws IOException {
-		final Iterable<String> names = new RqFormBase(req).param("name");
-		for (final String name: names) {
-			System.out.println("Name: " + name);
-		}
-		return new RsForward(
-			new RsFlash("Thanks for answering!"),
-			"/"
-		);
-	}
+    @Override
+    public Response act(final Request req) throws IOException {
+        final Iterable<String> names = new RqFormBase(req).param("name");
+        for (final String name : names) {
+            System.out.println("Name: " + name);
+        }
+        return new RsForward(
+            new RsFlash("Thanks for answering!"),
+            "/"
+        );
+    }
 }

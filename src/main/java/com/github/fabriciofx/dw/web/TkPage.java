@@ -30,16 +30,16 @@ import org.takes.rs.RsHtml;
 import java.io.IOException;
 
 public final class TkPage implements TkRegex {
-	@Override
-	public Response act(final RqRegex req) throws IOException {
+    @Override
+    public Response act(final RqRegex req) throws IOException {
         return new RsHtml(
-        	TkPage.class.getClassLoader()
-				.getResourceAsStream(
-					String.format(
-						"webapp/%s",
-						req.matcher().group("path")
-				)
-			)
+            TkPage.class.getClassLoader()
+                .getResourceAsStream(
+                    String.format(
+                        "webapp/%s",
+                        req.matcher().group("path")
+                    )
+                )
         );
-	}
+    }
 }

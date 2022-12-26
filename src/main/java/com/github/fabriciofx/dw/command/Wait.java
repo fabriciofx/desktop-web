@@ -27,19 +27,19 @@ import com.jcabi.log.Logger;
 import java.io.IOException;
 
 public final class Wait {
-	private final String command;
-	
-	public Wait(final String command) {
-		this.command = command;
-	}
-	
-	public void exec() throws IOException {
-		Logger.debug(Wait.class, "Executing command %s", this.command);
-		final Process process = Runtime.getRuntime().exec(this.command);
-		try {
-			process.waitFor();
-		} catch (final InterruptedException ex) {
-			throw new IOException(ex);
-		}		
-	}
+    private final String command;
+
+    public Wait(final String command) {
+        this.command = command;
+    }
+
+    public void exec() throws IOException {
+        Logger.debug(Wait.class, "Executing command %s", this.command);
+        final Process process = Runtime.getRuntime().exec(this.command);
+        try {
+            process.waitFor();
+        } catch (final InterruptedException ex) {
+            throw new IOException(ex);
+        }
+    }
 }

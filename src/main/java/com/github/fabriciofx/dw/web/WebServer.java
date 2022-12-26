@@ -29,28 +29,28 @@ import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
 
 public final class WebServer implements Server {
-	private final CountDownLatch cdl;
-	private final WebServerProcess process; 
+    private final CountDownLatch cdl;
+    private final WebServerProcess process;
 
-	public WebServer(final CountDownLatch cdl, final WebServerProcess process) {
-		this.cdl = cdl;
-		this.process = process;
-	}
+    public WebServer(final CountDownLatch cdl, final WebServerProcess process) {
+        this.cdl = cdl;
+        this.process = process;
+    }
 
-	@Override
-	public void start() throws IOException {
-		Logger.debug(WebServer.class, "Starting webserver... ");
-		this.process.start();
+    @Override
+    public void start() throws IOException {
+        Logger.debug(WebServer.class, "Starting webserver... ");
+        this.process.start();
         this.cdl.countDown();
-		Logger.debug(WebServer.class, "done.");
-	}
+        Logger.debug(WebServer.class, "done.");
+    }
 
-	@Override
-	public void stop() throws IOException {
-		Logger.debug(WebServer.class, "Stopping webserver... ");
+    @Override
+    public void stop() throws IOException {
+        Logger.debug(WebServer.class, "Stopping webserver... ");
         this.process.interrupt();
-		Logger.debug(WebServer.class, "done.");
-	}
+        Logger.debug(WebServer.class, "done.");
+    }
 
     @Override
     public void close() throws IOException {
