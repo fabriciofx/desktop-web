@@ -23,6 +23,7 @@
  */
 package com.github.fabriciofx.dw.web;
 
+import org.takes.http.Exit;
 import org.takes.http.FtBasic;
 import java.io.IOException;
 
@@ -40,7 +41,7 @@ public final class WebServerProcess extends Thread {
 				new TkRoutes(),
 				this.port
 			).start(
-                () -> Thread.interrupted()
+                Exit.NEVER
             );
 		} catch (final IOException ex) {
 			throw new IllegalArgumentException(ex);
