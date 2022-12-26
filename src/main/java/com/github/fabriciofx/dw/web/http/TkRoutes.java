@@ -21,20 +21,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.fabriciofx.dw.web;
+package com.github.fabriciofx.dw.web.http;
 
-import org.takes.Request;
-import org.takes.Response;
-import org.takes.Take;
-import org.takes.rs.RsHtml;
-import java.io.IOException;
+import org.takes.facets.fork.FkRegex;
+import org.takes.facets.fork.TkFork;
+import org.takes.tk.TkClasspath;
+import org.takes.tk.TkWithType;
+import org.takes.tk.TkWrap;
 
-public final class TkIndex implements Take {
-    @Override
-    public Response act(final Request req) throws IOException {
-        return new RsHtml(
-            TkIndex.class.getClassLoader()
-                .getResourceAsStream("webapp/index.html")
+public final class TkRoutes extends TkWrap {
+    public TkRoutes() {
+        super(
+            new TkFork(
+                new FkRegex("/robots.txt", ""),
+                new FkRegex(
+                    "/css/.+\\.css",
+                    new TkWithType(
+                        new TkClasspath("/webapp"),
+                        "text/css"
+                    )
+                ),
+                new FkRegex("/", new TkIndex()),
+                new FkRegex("/form", new TkForm()),
+                new FkRegex("/(?<path>[^/]+)", new TkPage())
+            )
         );
     }
 }
+

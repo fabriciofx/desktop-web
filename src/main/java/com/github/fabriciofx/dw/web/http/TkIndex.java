@@ -21,25 +21,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.fabriciofx.dw.web;
+package com.github.fabriciofx.dw.web.http;
 
-import com.github.fabriciofx.dw.Server;
-import com.jcabi.log.Logger;
+import org.takes.Request;
+import org.takes.Response;
+import org.takes.Take;
+import org.takes.rs.RsHtml;
 import java.io.IOException;
 
-public final class FakeServer implements Server {
+public final class TkIndex implements Take {
     @Override
-    public void start() throws IOException {
-        Logger.debug(FakeServer.class, "Starting fakeserver... done.");
-    }
-
-    @Override
-    public void stop() throws IOException {
-        Logger.debug(FakeServer.class, "Stopping fakeserver... done.");
-    }
-
-    @Override
-    public void close() throws IOException {
-        this.stop();
+    public Response act(final Request req) throws IOException {
+        return new RsHtml(
+            TkIndex.class.getClassLoader()
+                .getResourceAsStream("webapp/index.html")
+        );
     }
 }

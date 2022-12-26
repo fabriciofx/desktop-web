@@ -25,8 +25,8 @@ package com.github.fabriciofx.dw;
 
 import com.github.fabriciofx.dw.browser.Browsers;
 import com.github.fabriciofx.dw.config.ConfigFile;
-import com.github.fabriciofx.dw.web.WebServer;
-import com.github.fabriciofx.dw.web.WebServerProcess;
+import com.github.fabriciofx.dw.web.server.WebServer;
+import com.github.fabriciofx.dw.web.server.WebServerProcess;
 import com.jcabi.log.Logger;
 import java.io.IOException;
 import java.net.URI;

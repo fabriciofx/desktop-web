@@ -21,25 +21,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.fabriciofx.dw.web;
+package com.github.fabriciofx.dw.web.server;
 
-import org.takes.Response;
-import org.takes.facets.fork.RqRegex;
-import org.takes.facets.fork.TkRegex;
-import org.takes.rs.RsHtml;
+import com.github.fabriciofx.dw.Server;
+import com.jcabi.log.Logger;
 import java.io.IOException;
 
-public final class TkPage implements TkRegex {
+public final class FakeServer implements Server {
     @Override
-    public Response act(final RqRegex req) throws IOException {
-        return new RsHtml(
-            TkPage.class.getClassLoader()
-                .getResourceAsStream(
-                    String.format(
-                        "webapp/%s",
-                        req.matcher().group("path")
-                    )
-                )
-        );
+    public void start() throws IOException {
+        Logger.debug(FakeServer.class, "Starting fakeserver... done.");
+    }
+
+    @Override
+    public void stop() throws IOException {
+        Logger.debug(FakeServer.class, "Stopping fakeserver... done.");
+    }
+
+    @Override
+    public void close() throws IOException {
+        this.stop();
     }
 }

@@ -21,26 +21,39 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.fabriciofx.dw.web;
+package com.github.fabriciofx.dw.web.server;
 
-import org.takes.Request;
-import org.takes.Response;
-import org.takes.Take;
-import org.takes.facets.flash.RsFlash;
-import org.takes.facets.forward.RsForward;
-import org.takes.rq.form.RqFormBase;
+import com.github.fabriciofx.dw.Server;
+import com.jcabi.log.Logger;
 import java.io.IOException;
+import java.util.concurrent.CountDownLatch;
 
-public final class TkForm implements Take {
+public final class WebServer implements Server {
+    private final CountDownLatch cdl;
+    private final WebServerProcess process;
+
+    public WebServer(final CountDownLatch cdl, final WebServerProcess process) {
+        this.cdl = cdl;
+        this.process = process;
+    }
+
     @Override
-    public Response act(final Request req) throws IOException {
-        final Iterable<String> names = new RqFormBase(req).param("name");
-        for (final String name : names) {
-            System.out.println("Name: " + name);
-        }
-        return new RsForward(
-            new RsFlash("Thanks for answering!"),
-            "/"
-        );
+    public void start() throws IOException {
+        Logger.debug(WebServer.class, "Starting webserver... ");
+        this.process.start();
+        this.cdl.countDown();
+        Logger.debug(WebServer.class, "done.");
+    }
+
+    @Override
+    public void stop() throws IOException {
+        Logger.debug(WebServer.class, "Stopping webserver... ");
+        this.process.interrupt();
+        Logger.debug(WebServer.class, "done.");
+    }
+
+    @Override
+    public void close() throws IOException {
+        this.stop();
     }
 }

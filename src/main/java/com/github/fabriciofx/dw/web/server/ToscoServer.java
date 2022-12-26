@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.fabriciofx.dw.web;
+package com.github.fabriciofx.dw.web.server;
 
 import com.github.fabriciofx.dw.Server;
 import com.jcabi.log.Logger;

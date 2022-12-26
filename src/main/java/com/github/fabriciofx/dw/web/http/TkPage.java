@@ -21,31 +21,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.fabriciofx.dw.web;
+package com.github.fabriciofx.dw.web.http;
 
-import org.takes.facets.fork.FkRegex;
-import org.takes.facets.fork.TkFork;
-import org.takes.tk.TkClasspath;
-import org.takes.tk.TkWithType;
-import org.takes.tk.TkWrap;
+import org.takes.Response;
+import org.takes.facets.fork.RqRegex;
+import org.takes.facets.fork.TkRegex;
+import org.takes.rs.RsHtml;
+import java.io.IOException;
 
-public final class TkRoutes extends TkWrap {
-    public TkRoutes() {
-        super(
-            new TkFork(
-                new FkRegex("/robots.txt", ""),
-                new FkRegex(
-                    "/css/.+\\.css",
-                    new TkWithType(
-                        new TkClasspath("/webapp"),
-                        "text/css"
+public final class TkPage implements TkRegex {
+    @Override
+    public Response act(final RqRegex req) throws IOException {
+        return new RsHtml(
+            TkPage.class.getClassLoader()
+                .getResourceAsStream(
+                    String.format(
+                        "webapp/%s",
+                        req.matcher().group("path")
                     )
-                ),
-                new FkRegex("/", new TkIndex()),
-                new FkRegex("/form", new TkForm()),
-                new FkRegex("/(?<path>[^/]+)", new TkPage())
-            )
+                )
         );
     }
 }
-

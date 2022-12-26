@@ -21,39 +21,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.fabriciofx.dw.web;
+package com.github.fabriciofx.dw.web.server;
 
-import com.github.fabriciofx.dw.Server;
-import com.jcabi.log.Logger;
+import com.github.fabriciofx.dw.web.http.TkRoutes;
+import org.takes.http.Exit;
+import org.takes.http.FtBasic;
 import java.io.IOException;
-import java.util.concurrent.CountDownLatch;
 
-public final class WebServer implements Server {
-    private final CountDownLatch cdl;
-    private final WebServerProcess process;
+public final class WebServerProcess extends Thread {
+    private final int port;
 
-    public WebServer(final CountDownLatch cdl, final WebServerProcess process) {
-        this.cdl = cdl;
-        this.process = process;
+    public WebServerProcess(final int port) {
+        this.port = port;
     }
 
     @Override
-    public void start() throws IOException {
-        Logger.debug(WebServer.class, "Starting webserver... ");
-        this.process.start();
-        this.cdl.countDown();
-        Logger.debug(WebServer.class, "done.");
-    }
-
-    @Override
-    public void stop() throws IOException {
-        Logger.debug(WebServer.class, "Stopping webserver... ");
-        this.process.interrupt();
-        Logger.debug(WebServer.class, "done.");
-    }
-
-    @Override
-    public void close() throws IOException {
-        this.stop();
+    public void run() {
+        try {
+            new FtBasic(
+                new TkRoutes(),
+                this.port
+            ).start(
+                Exit.NEVER
+            );
+        } catch (final IOException ex) {
+            throw new IllegalArgumentException(ex);
+        }
     }
 }

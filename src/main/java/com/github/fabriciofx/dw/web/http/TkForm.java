@@ -21,30 +21,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.fabriciofx.dw.web;
+package com.github.fabriciofx.dw.web.http;
 
-import org.takes.http.Exit;
-import org.takes.http.FtBasic;
+import org.takes.Request;
+import org.takes.Response;
+import org.takes.Take;
+import org.takes.facets.flash.RsFlash;
+import org.takes.facets.forward.RsForward;
+import org.takes.rq.form.RqFormBase;
 import java.io.IOException;
 
-public final class WebServerProcess extends Thread {
-    private final int port;
-
-    public WebServerProcess(final int port) {
-        this.port = port;
-    }
-
+public final class TkForm implements Take {
     @Override
-    public void run() {
-        try {
-            new FtBasic(
-                new TkRoutes(),
-                this.port
-            ).start(
-                Exit.NEVER
-            );
-        } catch (final IOException ex) {
-            throw new IllegalArgumentException(ex);
+    public Response act(final Request req) throws IOException {
+        final Iterable<String> names = new RqFormBase(req).param("name");
+        for (final String name : names) {
+            System.out.println("Name: " + name);
         }
+        return new RsForward(
+            new RsFlash("Thanks for answering!"),
+            "/"
+        );
     }
 }
